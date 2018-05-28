@@ -40,11 +40,8 @@ with warnings_file.open('a') as warnings:
 
             print(out_filepath)
             if out_filepath.exists():
-                if datetime.fromtimestamp(out_filepath.stat().st_mtime) < datetime(year=2018, month=5, day=25):
-                    raise Exception(out_filepath)
-                else:
-                    out_filepath.unlink()
-            #else:
+                raise Exception(out_filepath)
+
             with out_filepath.open('wb') as f:
                 cmd = ['exiftool', '-b', '-original*raw*image*', str(image_filepath)]
                 out = check_call(cmd, stdout=f)
